@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prayer Booklet</title>
+<meta name="theme-color" content="#0e5a54">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Prayers">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+:root{--bg:#f6f7f4;--ink:#16221f;--muted:#5b6a65;--accent:#0f5a5f;--brass:#8a6a1e;--line:#dde3de;--fs:30;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1514;--ink:#e9eeea;--muted:#9aaea6;--accent:#72c6c8;--brass:#d6b668;--line:#21322f;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b1514;--ink:#e9eeea;--muted:#9aaea6;--accent:#72c6c8;--brass:#d6b668;--line:#21322f;color-scheme:dark}
+html,body{height:100%;margin:0}
+html{background:var(--bg)}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:"Amiri","Scheherazade New","Noto Naskh Arabic","Geeza Pro","Droid Arabic Naskh","Traditional Arabic","Arabic Typesetting",Georgia,serif;-webkit-text-size-adjust:100%;overflow:hidden}
+button{font:inherit;color:var(--ink);background:none;border:1px solid var(--line);border-radius:999px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.app{height:100%;display:flex;flex-direction:column;position:relative}
+.top{flex:none;display:flex;align-items:center;gap:10px;height:52px;padding:0 16px;border-bottom:1px solid var(--line)}
+.top .t{flex:1;text-align:center;font-size:18px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top .n{width:56px;text-align:right;font-size:16px;color:var(--muted);font-variant-numeric:tabular-nums}
+#aa{width:56px;height:34px;font-size:18px}
+.pop{position:absolute;z-index:20;top:58px;left:16px;width:min(280px,calc(100% - 32px));padding:8px 16px;border:1px solid var(--line);border-radius:18px;background:var(--bg);box-shadow:0 12px 32px rgba(0,0,0,.18)}
+.pop[hidden]{display:none}
+.row{display:flex;align-items:center;gap:8px;padding:7px 0}
+.row+.row{border-top:1px solid var(--line)}
+.row label{flex:1;font-size:18px}
+.row button{min-width:48px;height:36px;padding:0 12px;font-size:17px}
+.row button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.pager{flex:1;min-height:0;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none}
+.pager::-webkit-scrollbar,.page::-webkit-scrollbar{display:none}
+.page{flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;padding:30px max(26px,calc((100% - 540px)/2)) 36px}
+h2{margin:0;text-align:center;font-size:26px;line-height:1.25;font-weight:700;color:var(--accent)}
+.src{margin:4px 0 0;text-align:center;font-size:16px;color:var(--muted)}
+.orn{display:block;width:32px;height:1px;margin:16px auto 0;background:var(--brass)}
+.ar{direction:rtl;font-size:calc(var(--fs)*1px);line-height:2.2;margin:26px 0 0;text-align:right}
+.ar.c{text-align:center}
+#s1 .ar{font-size:calc(var(--fs)*1.2px);margin-top:40px}
+.ar b{font-weight:400;color:var(--brass);font-size:.75em;white-space:nowrap}
+.lat{margin:10px 0 0;font-size:17px;line-height:1.7;color:var(--muted)}
+.ayah+.ayah{margin-top:26px;border-top:1px solid var(--line)}
+.nolatin .lat{display:none}
+.cover{display:flex;flex-direction:column;align-items:center;text-align:center}
+.cover::before,.cover::after{content:"";flex:1 0 0}
+.cover>*{flex:none}
+.rub{width:96px;height:auto;fill:none;stroke:var(--brass);stroke-width:1.6}
+.cover h1{margin:22px 0 0;font-size:34px;line-height:1.1;font-weight:700;color:var(--accent)}
+.cover .sub{margin:6px 0 0;font-size:17px;color:var(--muted)}
+.toc{width:100%;margin:30px 0 0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.toc button{display:flex;width:100%;justify-content:space-between;align-items:center;padding:15px 0;border:0;border-bottom:1px solid var(--line);border-radius:0;font-size:20px;text-align:left}
+.toc em{font-style:normal;font-size:17px;color:var(--muted)}
+.cover .hint{margin:18px 0 0;font-size:15px;color:var(--muted)}
+.count{margin:36px 0 0;text-align:center}
+#ct{width:112px;height:112px;border-radius:50%;border:1.5px solid var(--brass);font-size:40px;font-weight:700;line-height:1;color:var(--accent)}
+#ct:active{transform:scale(.97)}
+.count small{display:block;margin-top:12px;font-size:16px;color:var(--muted)}
+#rs{margin-left:8px;padding:2px 12px;font-size:15px;color:var(--muted)}
+.dock{flex:none;display:flex;align-items:center;justify-content:space-between;padding:6px 16px;border-top:1px solid var(--line)}
+.nav{width:44px;height:44px;padding:0 0 4px;font-size:28px;line-height:1}
+.nav:disabled{opacity:.3;cursor:default}
+.dots{display:flex}
+.dots button{width:30px;height:44px;padding:0;border:0;display:grid;place-items:center}
+.dots i{width:7px;height:7px;border-radius:4px;background:var(--line);transition:width .2s,background .2s}
+.dots .on i{width:20px;background:var(--accent)}
+:root{--bg:#f4efe3;--card:#fbf8ef;--ink:#1d2a26;--muted:#69746e;--accent:#0e5a54;--brass:#a07a2a;--line:#e1d9c5;--glow:rgba(160,122,42,.16)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a1413;--card:#112120;--ink:#ece9de;--muted:#93a8a0;--accent:#6fd0c4;--brass:#d9b96a;--line:#1f3331;--glow:rgba(217,185,106,.10)}}
+:root[data-theme="dark"]{--bg:#0a1413;--card:#112120;--ink:#ece9de;--muted:#93a8a0;--accent:#6fd0c4;--brass:#d9b96a;--line:#1f3331;--glow:rgba(217,185,106,.10)}
+body{background:radial-gradient(130% 55% at 50% -8%,var(--glow),transparent 70%),var(--bg)}
+button{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+.top{height:50px;border:0;padding:0 14px}
+#aa{width:46px;height:32px;border-radius:12px;background:var(--card);font-size:16px}
+.top .t{font-size:17px;letter-spacing:.02em}
+.dots{flex:none;display:flex;justify-content:center;height:20px}
+.dots button{width:24px;height:20px}
+.pop{top:54px;background:var(--card);border-radius:20px}
+.page{padding:12px max(14px,calc((100% - 560px)/2)) 24px}
+h2{font-size:25px;margin-top:6px}
+.src{display:table;margin:10px auto 0;padding:2px 14px;font-size:14px;letter-spacing:.05em;border:1px solid var(--line);border-radius:999px;background:var(--card)}
+.orn{width:auto;height:auto;margin:14px 0 4px;background:none;text-align:center;font-style:normal;font-size:24px;line-height:1;color:var(--brass)}
+.orn::before{content:"۞"}
+.ayah{margin-top:12px;padding:4px 18px 18px;background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:0 14px 30px -22px rgba(0,0,0,.45)}
+.ayah+.ayah{margin-top:14px;border-top:1px solid var(--line)}
+.ar,.ayah .ar{text-align:center;line-height:2.15;margin-top:16px}
+#s1 .ar{margin-top:22px}
+.lat{margin:14px 0 0;padding-top:12px;border-top:1px dashed var(--line);font-size:16px;font-style:italic;text-align:center}
+.cover h1{font-size:38px}
+.rub{width:104px;stroke-width:1.4}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:no-preference){.rub{animation:sp 90s linear infinite}}
+.toc{border:0;margin-top:26px}
+.toc li{margin-bottom:10px}
+.toc button{padding:14px 16px;font-size:19px;border:1px solid var(--line);border-radius:18px;background:var(--card);box-shadow:0 10px 22px -18px rgba(0,0,0,.5)}
+.toc em{display:grid;place-items:center;width:28px;height:28px;border:1px solid var(--brass);border-radius:50%;font-size:15px;color:var(--brass)}
+.dock{gap:4px;padding:10px 12px 12px;background:var(--card);border-top:1px solid var(--line)}
+.dock.cov{background:transparent;border-top-color:transparent}
+.dock.cov .ctr{visibility:hidden}
+.nav{width:46px;height:46px;border:0;padding:0 0 6px;font-size:36px;color:var(--accent)}
+.ctr{display:flex;align-items:center;gap:20px}
+.sm{width:42px;height:42px;padding:0;font-size:19px;color:var(--muted);background:var(--bg)}
+.sm.arm{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+#tap{position:relative;width:80px;height:80px;padding:0;border:0;border-radius:50%;background:conic-gradient(var(--accent) calc(var(--p,0)*1%),var(--line) 0);box-shadow:0 10px 24px -12px var(--accent);transition:transform .08s}
+#tap::before{content:"";position:absolute;inset:5px;border-radius:50%;background:var(--bg)}
+#tap:active{transform:scale(.94)}
+#tap.inf,#tap.done{background:var(--brass)}
+#tap span,#tap small{position:relative;display:block;line-height:1}
+#tap span{font-size:30px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+#tap small{margin-top:3px;min-height:12px;font-size:12px;color:var(--muted)}
+.page{padding:12px max(12px,calc((100% - 560px)/2)) 24px}
+h2{font-size:28px}
+.src{font-size:16px}
+.ayah{padding:4px 14px 20px}
+#s1 .ar{font-size:calc(var(--fs)*1.1px)}
+.lat,.mean{margin:16px 0 0;padding-top:14px;border-top:1px dashed var(--line);text-align:center;font-size:calc(var(--fs)*.52px);line-height:1.65}
+.lat{color:var(--muted);font-style:italic;font-size:calc(var(--fs)*.74px);line-height:1.6}
+.mean{color:var(--ink)}
+.mean::before{content:"Meaning";display:block;margin-bottom:6px;font-size:.62em;letter-spacing:.14em;text-transform:uppercase;color:var(--brass)}
+.nomean .mean{display:none}
+.toc button{font-size:21px}
+.toc em{width:30px;height:30px;font-size:16px}
+.ctr{gap:18px}
+.sm{width:44px;height:44px;font-size:20px;color:var(--accent);background:var(--bg);border:1px solid var(--line);box-shadow:0 4px 10px -8px rgba(0,0,0,.5)}
+#tgt{font-size:16px;font-weight:700}
+#tap{width:92px;height:92px;background:conic-gradient(var(--brass) calc(var(--p,0)*1%),var(--line) 0);box-shadow:0 12px 26px -14px var(--accent)}
+#tap::before{inset:5px;background:var(--card)}
+#tap::after{content:"";position:absolute;inset:9px;border-radius:50%;background:radial-gradient(circle at 34% 26%,rgba(255,255,255,.38),transparent 62%),var(--accent);box-shadow:inset 0 2px 2px rgba(255,255,255,.3),inset 0 -8px 14px rgba(0,0,0,.3)}
+#tap.done::after{background:radial-gradient(circle at 34% 26%,rgba(255,255,255,.4),transparent 62%),var(--brass)}
+#tap:active::after{box-shadow:inset 0 3px 12px rgba(0,0,0,.45)}
+#tap span,#tap small{z-index:1;color:var(--bg)}
+#tap span{font-size:36px}
+#tap small{margin-top:2px;opacity:.85;font-size:12px;letter-spacing:.06em}
+@keyframes pl{0%{box-shadow:0 0 0 0 rgba(160,122,42,.5),0 12px 26px -14px var(--accent)}100%{box-shadow:0 0 0 16px rgba(160,122,42,0),0 12px 26px -14px var(--accent)}}
+@media (prefers-reduced-motion:no-preference){#tap.pl{animation:pl .45s ease-out}}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="top">
+<button id="aa" aria-label="Reading settings" aria-expanded="false">Aa</button>
+<span class="t" id="ttl">Prayer booklet</span>
+<span class="n" id="num">1 / 4</span>
+</div>
+<div class="dots" id="dots"></div>
+<div class="pop" id="pop" hidden>
+<div class="row"><label>Text size</label><button id="dn" aria-label="Smaller text">A−</button><button id="up" aria-label="Larger text">A+</button></div>
+<div class="row"><label>Latin</label><button id="lt" aria-pressed="true">On</button></div>
+<div class="row"><label>Meaning</label><button id="mn" aria-pressed="true">On</button></div>
+<div class="row"><label>Theme</label><button id="th">Auto</button></div>
+</div>
+<main class="pager" id="pager">
+<section class="page cover" id="s0">
+<img class="logo" src="icon-512.png" alt="" width="112" height="112">
+<h1>Prayer booklet</h1>
+<p class="sub">Three short readings for the day</p>
+<ul class="toc">
+<li><button data-go="1">Rabbi inni lima anzalta<em>1</em></button></li>
+<li><button data-go="2">Al-Baqarah 284–286<em>2</em></button></li>
+<li><button data-go="3">Sholawat Munjiyat<em>3</em></button></li>
+</ul>
+<p class="hint">Swipe to turn the page</p>
+</section>
+<section class="page" id="s1">
+<h2>Rabbi inni lima anzalta ilayya</h2>
+<p class="src">Al-Qasas 28:24</p>
+<i class="orn"></i>
+<div class="ayah">
+<p class="ar c">رَبِّ إِنِّي لِمَا أَنزَلْتَ إِلَيَّ مِنْ خَيْرٍ فَقِيرٌ <b>﴿٢٤﴾</b></p>
+<p class="lat">Rabbi inni lima anzalta ilayya min khairin faqir.</p>
+<p class="mean">My Lord, I am truly in need of whatever good You send down to me.</p>
+</div>
+</section>
+
+<section class="page" id="s2">
+<h2>Al-Baqarah, last three verses</h2>
+<p class="src">Al-Baqarah 2:284–286</p>
+<i class="orn"></i>
+<div class="ayah">
+<p class="ar">لِلَّهِ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ وَإِنْ تُبْدُوا مَا فِي أَنْفُسِكُمْ أَوْ تُخْفُوهُ يُحَاسِبْكُمْ بِهِ اللَّهُ ۖ فَيَغْفِرُ لِمَنْ يَشَاءُ وَيُعَذِّبُ مَنْ يَشَاءُ ۗ وَاللَّهُ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ <b>﴿٢٨٤﴾</b></p>
+<p class="lat">Lillahi ma fis-samawati wa ma fil-ard. Wa in tubdu ma fi anfusikum aw tukhfuhu yuhasibkum bihillah. Fa yaghfiru li may yasya’u wa yu‘azzibu may yasya’. Wallahu ‘ala kulli syai’in qadir.</p>
+<p class="mean">To Allah belongs everything in the heavens and everything on the earth. Whether you reveal what is in your hearts or hide it, Allah will hold you to account for it. Then He forgives whom He wills and punishes whom He wills, and Allah has power over all things.</p>
+</div>
+<div class="ayah">
+<p class="ar">آمَنَ الرَّسُولُ بِمَا أُنْزِلَ إِلَيْهِ مِنْ رَبِّهِ وَالْمُؤْمِنُونَ ۚ كُلٌّ آمَنَ بِاللَّهِ وَمَلَائِكَتِهِ وَكُتُبِهِ وَرُسُلِهِ لَا نُفَرِّقُ بَيْنَ أَحَدٍ مِنْ رُسُلِهِ ۚ وَقَالُوا سَمِعْنَا وَأَطَعْنَا ۖ غُفْرَانَكَ رَبَّنَا وَإِلَيْكَ الْمَصِيرُ <b>﴿٢٨٥﴾</b></p>
+<p class="lat">Amanar-rasulu bima unzila ilaihi mir rabbihi wal-mu’minun. Kullun amana billahi wa mala’ikatihi wa kutubihi wa rusulih. La nufarriqu baina ahadim mir rusulih. Wa qalu sami‘na wa ata‘na ghufranaka rabbana wa ilaikal-masir.</p>
+<p class="mean">The Messenger believes in what was sent down to him from his Lord, and so do the believers. Each one believes in Allah, His angels, His books and His messengers, saying, “We make no distinction between any of His messengers.” And they say, “We hear and we obey. Grant us Your forgiveness, our Lord, for to You is the final return.”</p>
+</div>
+<div class="ayah">
+<p class="ar">لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا ۚ لَهَا مَا كَسَبَتْ وَعَلَيْهَا مَا اكْتَسَبَتْ ۗ رَبَّنَا لَا تُؤَاخِذْنَا إِنْ نَسِينَا أَوْ أَخْطَأْنَا ۚ رَبَّنَا وَلَا تَحْمِلْ عَلَيْنَا إِصْرًا كَمَا حَمَلْتَهُ عَلَى الَّذِينَ مِنْ قَبْلِنَا ۚ رَبَّنَا وَلَا تُحَمِّلْنَا مَا لَا طَاقَةَ لَنَا بِهِ ۖ وَاعْفُ عَنَّا وَاغْفِرْ لَنَا وَارْحَمْنَا ۚ أَنْتَ مَوْلَانَا فَانْصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ <b>﴿٢٨٦﴾</b></p>
+<p class="lat">La yukallifullahu nafsan illa wus‘aha. Laha ma kasabat wa ‘alaiha maktasabat. Rabbana la tu’akhizna in nasina aw akhta’na. Rabbana wa la tahmil ‘alaina isran kama hamaltahu ‘alal-lazina min qablina. Rabbana wa la tuhammilna ma la taqata lana bih. Wa‘fu ‘anna waghfir lana warhamna. Anta maulana fansurna ‘alal-qaumil-kafirin.</p>
+<p class="mean">Allah does not burden any soul beyond what it can bear. It will have the reward of what it has earned, and bear the consequence of what it has done. “Our Lord, do not hold us to account if we forget or make a mistake. Our Lord, do not place on us a burden like the one You placed on those before us. Our Lord, do not make us carry what we have no strength for. Pardon us, forgive us, and have mercy on us. You are our Protector, so grant us victory over the disbelieving people.”</p>
+</div>
+</section>
+
+<section class="page" id="s3">
+<h2>Sholawat Munjiyat</h2>
+<p class="src">Salawat for deliverance</p>
+<i class="orn"></i>
+<div class="ayah">
+<p class="ar">اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ صَلَاةً تُنْجِينَا بِهَا مِنْ جَمِيعِ الْأَهْوَالِ وَالْآفَاتِ، وَتَقْضِي لَنَا بِهَا مِنْ جَمِيعِ الْحَاجَاتِ، وَتُطَهِّرُنَا بِهَا مِنْ جَمِيعِ السَّيِّئَاتِ، وَتَرْفَعُنَا بِهَا عِنْدَكَ أَعْلَى الدَّرَجَاتِ، وَتُبَلِّغُنَا بِهَا أَقْصَى الْغَايَاتِ مِنْ جَمِيعِ الْخَيْرَاتِ فِي الْحَيَاةِ وَبَعْدَ الْمَمَاتِ</p>
+<p class="lat">Allahumma salli ‘ala sayyidina Muhammadin salatan tunjina biha min jami‘il-ahwali wal-afat, wa taqdi lana biha min jami‘il-hajat, wa tuthahhiruna biha min jami‘is-sayyi’at, wa tarfa‘una biha ‘indaka a‘lad-darajat, wa tuballighuna biha aqshal-ghayati min jami‘il-khairati fil-hayati wa ba‘dal-mamat.</p>
+<p class="mean">O Allah, send blessings upon our master Muhammad, a blessing by which You save us from all terrors and calamities, by which You fulfil all our needs, by which You purify us from all sins, by which You raise us to the highest ranks with You, and by which You bring us to the furthest goals of all that is good, in this life and after death.</p>
+</div>
+</section>
+
+</main>
+<nav class="dock" aria-label="Pages">
+<button class="nav" id="pv" aria-label="Previous page">‹</button>
+<div class="ctr"><button class="sm" id="rst" aria-label="Reset count">↺</button><button id="tap" aria-label="Tap to count"><span id="cn">0</span><small id="tl"></small></button><button class="sm" id="tgt" aria-label="Change target">∞</button></div>
+<button class="nav" id="nx" aria-label="Next page">›</button>
+</nav>
+</div>
+<script>
+(function(){
+var R=document.documentElement,B=document.body,P=document.getElementById("pager"),D=document.getElementById("dots"),
+T=["Prayer booklet","Rabbi inni","Al-Baqarah 284–286","Sholawat Munjiyat"],N=T.length,cur=0,fs=38,lat=1,mn=1,mode="auto",
+pv=document.getElementById("pv"),nx=document.getElementById("nx"),pop=document.getElementById("pop"),aa=document.getElementById("aa");
+function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function put(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+var v=parseInt(get("pb-fs2"),10);if(v>=26&&v<=60)fs=v;
+if(get("pb-lat")==="0")lat=0;
+if(get("pb-mn")==="0")mn=0;
+var m=get("pb-th");if(m==="light"||m==="dark")mode=m;
+function aFs(){R.style.setProperty("--fs",fs);put("pb-fs2",fs)}
+function aLat(){var b=document.getElementById("lt");B.classList.toggle("nolatin",!lat);b.setAttribute("aria-pressed",String(!!lat));b.textContent=lat?"On":"Off";put("pb-lat",lat?"1":"0")}
+function aTh(){if(mode==="auto")R.removeAttribute("data-theme");else R.setAttribute("data-theme",mode);document.getElementById("th").textContent=mode.charAt(0).toUpperCase()+mode.slice(1);put("pb-th",mode)}
+function aMn(){var b=document.getElementById("mn");B.classList.toggle("nomean",!mn);b.setAttribute("aria-pressed",String(!!mn));b.textContent=mn?"On":"Off";put("pb-mn",mn?"1":"0")}
+aMn();document.getElementById("mn").onclick=function(){mn=mn?0:1;aMn()};
+aFs();aLat();aTh();
+document.getElementById("up").onclick=function(){fs=Math.min(60,fs+2);aFs()};
+document.getElementById("dn").onclick=function(){fs=Math.max(26,fs-2);aFs()};
+document.getElementById("lt").onclick=function(){lat=lat?0:1;aLat()};
+document.getElementById("th").onclick=function(){mode=mode==="auto"?"light":mode==="light"?"dark":"auto";aTh()};
+aa.onclick=function(){pop.hidden=!pop.hidden;aa.setAttribute("aria-expanded",String(!pop.hidden))};
+document.addEventListener("click",function(e){if(!pop.hidden&&!e.target.closest("#pop,#aa")){pop.hidden=true;aa.setAttribute("aria-expanded","false")}});
+function go(i,now){i=Math.max(0,Math.min(N-1,i));P.scrollTo({left:i*P.clientWidth,behavior:now?"auto":"smooth"})}
+for(var i=0;i<N;i++){(function(i){var b=document.createElement("button");b.setAttribute("aria-label","Page "+(i+1));b.innerHTML="<i></i>";b.onclick=function(){go(i)};D.appendChild(b)})(i)}
+function sync(){cur=Math.max(0,Math.min(N-1,Math.round(P.scrollLeft/P.clientWidth)));
+document.getElementById("ttl").textContent=T[cur];document.getElementById("num").textContent=(cur+1)+" / "+N;
+[].forEach.call(D.children,function(b,j){b.classList.toggle("on",j===cur)});pv.disabled=cur===0;nx.disabled=cur===N-1;put("pb-p",cur);rC()}
+P.addEventListener("scroll",sync);
+pv.onclick=function(){go(cur-1)};nx.onclick=function(){go(cur+1)};
+[].forEach.call(document.querySelectorAll("[data-go]"),function(b){b.onclick=function(){go(+b.dataset.go)}});
+document.addEventListener("keydown",function(e){if(e.key==="ArrowRight")go(cur+1);if(e.key==="ArrowLeft")go(cur-1)});
+window.addEventListener("resize",function(){go(cur,true)});
+sync();
+var p=parseInt(get("pb-p"),10);if(p>0&&p<N)requestAnimationFrame(function(){go(p,true)});
+var TG=[0,3,7,11,33,100],C=[],X=[],tap=document.getElementById("tap"),cn=document.getElementById("cn"),tl=document.getElementById("tl"),tg=document.getElementById("tgt"),rs=document.getElementById("rst"),dock=document.querySelector(".dock"),rt;
+try{var s=JSON.parse(get("pb-c"));C=s.c||[];X=s.t||[]}catch(e){}
+function sC(){put("pb-c",JSON.stringify({c:C,t:X}))}
+function rC(){if(!tap)return;var n=C[cur]||0,t=X[cur]||0;dock.classList.toggle("cov",cur===0);rs.classList.remove("arm");cn.textContent=n;cn.style.fontSize=n>999?"20px":"";tl.textContent=t?"/ "+t:(n?"":"tap");tg.textContent=t||"∞";tap.style.setProperty("--p",t?Math.min(100,n/t*100):100);tap.classList.toggle("inf",!t);tap.classList.toggle("done",!!t&&n>=t)}
+tap.onclick=function(){if(!cur)return;tap.classList.remove("pl");void tap.offsetWidth;tap.classList.add("pl");var t=X[cur]||0,n=C[cur]=(C[cur]||0)+1;sC();rC();if(navigator.vibrate){try{navigator.vibrate(t&&n===t?[30,50,30]:8)}catch(e){}}};
+rs.onclick=function(){if(rs.classList.contains("arm")){C[cur]=0;sC();rC()}else if(C[cur]){rs.classList.add("arm");clearTimeout(rt);rt=setTimeout(function(){rs.classList.remove("arm")},2000)}};
+tg.onclick=function(){var i=TG.indexOf(X[cur]||0);X[cur]=TG[(i+1)%TG.length];sC();rC()};
+rC();
+})();
+</script>
+<script>
+if("serviceWorker" in navigator&&location.protocol!=="file:"){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
+</script>
+</body>
+</html>
