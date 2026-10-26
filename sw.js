@@ -2,12 +2,11 @@
 // On the first online visit it saves the page, the icons AND the Amiri Arabic
 // font from Google Fonts. After that everything opens from the device with no
 // internet, and is quietly refreshed in the background whenever you are online.
-const CACHE = "prayer-booklet-v4";
+const CACHE = "prayer-booklet-v5";
 const FONT_CSS = "https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap";
 const FILES = [
   "./",
   "index.html",
-  "tts.js",
   "manifest.webmanifest",
   "icon-192.png",
   "icon-512.png",
