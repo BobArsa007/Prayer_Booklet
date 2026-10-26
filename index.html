@@ -139,6 +139,10 @@ h2{font-size:28px}
 #tap small{margin-top:2px;opacity:.85;font-size:12px;letter-spacing:.06em}
 @keyframes pl{0%{box-shadow:0 0 0 0 rgba(160,122,42,.5),0 12px 26px -14px var(--accent)}100%{box-shadow:0 0 0 16px rgba(160,122,42,0),0 12px 26px -14px var(--accent)}}
 @media (prefers-reduced-motion:no-preference){#tap.pl{animation:pl .45s ease-out}}
+.yt{display:flex;width:max-content;max-width:100%;align-items:center;gap:8px;margin:14px auto 0;padding:9px 20px;font-size:18px;line-height:1.2;color:var(--accent);text-decoration:none;background:var(--card);border:1px solid var(--accent);border-radius:999px;-webkit-tap-highlight-color:transparent}
+.yt:active{background:var(--accent);color:var(--bg)}
+.yt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.yt svg{flex:none}
 </style>
 </head>
 <body>
@@ -170,6 +174,7 @@ h2{font-size:28px}
 <section class="page" id="s1">
 <h2>Rabbi inni lima anzalta ilayya</h2>
 <p class="src">Al-Qasas 28:24</p>
+<a class="yt" href="https://www.youtube.com/results?search_query=Rabbi+inni+lima+anzalta+ilayya+min+khairin+faqir" target="_blank" rel="noopener noreferrer"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Listen on YouTube</a>
 <i class="orn"></i>
 <div class="ayah">
 <p class="ar c">رَبِّ إِنِّي لِمَا أَنزَلْتَ إِلَيَّ مِنْ خَيْرٍ فَقِيرٌ <b>﴿٢٤﴾</b></p>
@@ -181,6 +186,7 @@ h2{font-size:28px}
 <section class="page" id="s2">
 <h2>Al-Baqarah, last three verses</h2>
 <p class="src">Al-Baqarah 2:284–286</p>
+<a class="yt" href="https://www.youtube.com/results?search_query=Surah+Al-Baqarah+284-286+recitation" target="_blank" rel="noopener noreferrer"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Listen on YouTube</a>
 <i class="orn"></i>
 <div class="ayah">
 <p class="ar">لِلَّهِ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ وَإِنْ تُبْدُوا مَا فِي أَنْفُسِكُمْ أَوْ تُخْفُوهُ يُحَاسِبْكُمْ بِهِ اللَّهُ ۖ فَيَغْفِرُ لِمَنْ يَشَاءُ وَيُعَذِّبُ مَنْ يَشَاءُ ۗ وَاللَّهُ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ <b>﴿٢٨٤﴾</b></p>
@@ -202,6 +208,7 @@ h2{font-size:28px}
 <section class="page" id="s3">
 <h2>Sholawat Munjiyat</h2>
 <p class="src">Salawat for deliverance</p>
+<a class="yt" href="https://www.youtube.com/results?search_query=Sholawat+Munjiyat" target="_blank" rel="noopener noreferrer"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Listen on YouTube</a>
 <i class="orn"></i>
 <div class="ayah">
 <p class="ar">اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ صَلَاةً تُنْجِينَا بِهَا مِنْ جَمِيعِ الْأَهْوَالِ وَالْآفَاتِ، وَتَقْضِي لَنَا بِهَا مِنْ جَمِيعِ الْحَاجَاتِ، وَتُطَهِّرُنَا بِهَا مِنْ جَمِيعِ السَّيِّئَاتِ، وَتَرْفَعُنَا بِهَا عِنْدَكَ أَعْلَى الدَّرَجَاتِ، وَتُبَلِّغُنَا بِهَا أَقْصَى الْغَايَاتِ مِنْ جَمِيعِ الْخَيْرَاتِ فِي الْحَيَاةِ وَبَعْدَ الْمَمَاتِ</p>
@@ -265,6 +272,5 @@ rC();
 <script>
 if("serviceWorker" in navigator&&location.protocol!=="file:"){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
 </script>
-<script src="tts.js"></script>
 </body>
 </html>
